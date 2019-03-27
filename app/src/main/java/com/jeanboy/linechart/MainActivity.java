@@ -20,78 +20,41 @@ public class MainActivity extends AppCompatActivity {
 
     LineChartView lineChartView;
 
-    private int[] dataArr = new int[]{200, 100, 300, -20, 50, -80, 200, 100, 300, 50, 200, 150, 160, 100, 300, 50, 200, 150,
-            300, 50, 200, 100, 150, 150};
+    private int[] dataArr = new int[]{230, 270, 280, 290, 280, 260, 220};
+    private int[] dataArr2 = new int[]{250, 260, 270, 280, 270, 240, 210};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_main );
 
-        lineChartView = (LineChartView) findViewById(R.id.line_chart_view);
-        sb_ruler_space = (SeekBar) findViewById(R.id.sb_ruler_space);
-        tv_ruler_y = (TextView) findViewById(R.id.tv_ruler_y);
-        sb_step_space = (SeekBar) findViewById(R.id.sb_step_space);
-        tv_step_space = (TextView) findViewById(R.id.tv_step_space);
+        lineChartView = (LineChartView) findViewById( R.id.line_chart_view );
+        sb_ruler_space = (SeekBar) findViewById( R.id.sb_ruler_space );
+        tv_ruler_y = (TextView) findViewById( R.id.tv_ruler_y );
+        sb_step_space = (SeekBar) findViewById( R.id.sb_step_space );
+        tv_step_space = (TextView) findViewById( R.id.tv_step_space );
 
         List<LineChartView.Data> datas = new ArrayList<>();
         for (int value : dataArr) {
-            LineChartView.Data data = new LineChartView.Data(value);
-            datas.add(data);
+            LineChartView.Data data = new LineChartView.Data( value );
+            datas.add( data );
         }
-        lineChartView.setData(datas);
-
-        sb_ruler_space.setMax(70);
-        sb_ruler_space.setProgress(20);
-        if (lineChartView != null) {
-            lineChartView.setRulerYSpace(20);
-            tv_ruler_y.setText(String.valueOf(20));
+        lineChartView.setData( datas );
+        List<LineChartView.Data> datas2 = new ArrayList<>();
+        for (int value : dataArr2) {
+            LineChartView.Data data = new LineChartView.Data( value );
+            datas2.add( data );
         }
-        sb_ruler_space.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (lineChartView != null) {
-                    lineChartView.setRulerYSpace(progress);
-                    tv_ruler_y.setText(String.valueOf(progress));
-                }
-            }
+        lineChartView.setData2( datas2 );
+        //显示图表
+        lineChartView.setShowTable( true );
+        //显示曲线
+        lineChartView.setBezierLine( true );
+        //圆描点
+        lineChartView.setCubePoint( false );
+        lineChartView.setRulerYSpace( 21 );
+        lineChartView.setStepSpace( 44 );
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        sb_step_space.setMax(70);
-        sb_step_space.setProgress(15);
-        if (lineChartView != null) {
-            lineChartView.setStepSpace(15);
-            tv_step_space.setText(String.valueOf(15));
-        }
-        sb_step_space.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (lineChartView != null) {
-                    lineChartView.setStepSpace(progress);
-                    tv_step_space.setText(String.valueOf(progress));
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     private boolean isShowTable = false;
@@ -99,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     public void tableToggle(View view) {
         if (lineChartView != null) {
             isShowTable = !isShowTable;
-            lineChartView.setShowTable(isShowTable);
+            //显示图表
+            lineChartView.setShowTable( true );
         }
     }
 
@@ -108,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public void bezierModelToggle(View view) {
         if (lineChartView != null) {
             isBezier = !isBezier;
-            lineChartView.setBezierLine(isBezier);
+            lineChartView.setBezierLine( isBezier );
         }
     }
 
@@ -117,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void pointModelToggle(View view) {
         if (lineChartView != null) {
             isCube = !isCube;
-            lineChartView.setCubePoint(isCube);
+            lineChartView.setCubePoint( isCube );
         }
     }
 
