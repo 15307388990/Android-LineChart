@@ -60,7 +60,7 @@ public class LineChartView extends View {
     private int rulerValuePaddingDP = 8;//刻度单位与轴的间距默认dp
     private float heightPercent = 0.618f;
 
-    private int lineColor = Color.parseColor( "#286DD4" );//曲线颜色
+    private int lineColor = Color.parseColor( "#FFBC33" );//曲线颜色
     private float lineWidthDP = 2f;//曲线宽度dp
 
     private int pointColor = Color.parseColor( "#FF4081" );//锚点颜色
@@ -110,7 +110,7 @@ public class LineChartView extends View {
         linePaint2 = new Paint();
         linePaint2.setAntiAlias( true );//抗锯齿
         linePaint2.setStyle( Paint.Style.STROKE );//STROKE描边FILL填充
-        linePaint2.setColor( Color.parseColor( "#8B008B" ) );
+        linePaint2.setColor( Color.parseColor( "#FD2A5B" ) );
         linePaint2.setStrokeWidth( dip2px( lineWidthDP ) );//边框宽度
 
         pointPaint = new Paint();
@@ -312,7 +312,7 @@ public class LineChartView extends View {
 
         tablePath.moveTo( stepStart, -getValueHeight( rulerMax ) );//加上顶部的间隔
         tablePath.lineTo( stepStart, 0 );//标尺y轴
-        tablePath.lineTo( tableEnd, 0 );//标尺x轴
+       tablePath.lineTo( tableEnd, 0 );//标尺x轴
 
         int startValue = minValue - (minValue > 0 ? 0 : minValue % rulerValue);
         int endValue = (maxValue + rulerValue);
@@ -320,7 +320,7 @@ public class LineChartView extends View {
         //标尺y轴连接线
         do {
             int startHeight = -getValueHeight( startValue );
-            tablePath.moveTo( stepStart, startHeight );
+          tablePath.moveTo( stepStart, startHeight );
             tablePath.lineTo( tableEnd, startHeight );
             //绘制y轴刻度单位
             drawRulerYText( canvas, String.valueOf( startValue ), stepStart, startHeight );

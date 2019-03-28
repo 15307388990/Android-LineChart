@@ -52,8 +52,60 @@ public class MainActivity extends AppCompatActivity {
         lineChartView.setBezierLine( true );
         //圆描点
         lineChartView.setCubePoint( false );
-        lineChartView.setRulerYSpace( 21 );
+        lineChartView.setRulerYSpace( 10 );
         lineChartView.setStepSpace( 44 );
+
+        sb_ruler_space.setMax(70);
+        sb_ruler_space.setProgress(20);
+        if (lineChartView != null) {
+            lineChartView.setRulerYSpace(20);
+            tv_ruler_y.setText(String.valueOf(20));
+        }
+        sb_ruler_space.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (lineChartView != null) {
+                    lineChartView.setRulerYSpace(progress);
+                    tv_ruler_y.setText(String.valueOf(progress));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        sb_step_space.setMax(70);
+        sb_step_space.setProgress(15);
+        if (lineChartView != null) {
+            lineChartView.setStepSpace(15);
+            tv_step_space.setText(String.valueOf(15));
+        }
+        sb_step_space.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (lineChartView != null) {
+                    lineChartView.setStepSpace(progress);
+                    tv_step_space.setText(String.valueOf(progress));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
     }
 

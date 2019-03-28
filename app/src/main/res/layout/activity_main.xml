@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,24 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+
+        <com.jeanboy.linechart.LineChartView
+            android:id="@+id/line_chart_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_marginLeft="-20dp"
+            android:layout_height="300dp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.jeanboy.linechart.LineChartView
-                    android:id="@+id/line_chart_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="300dp"/>
-            </LinearLayout>
-
-        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,29 +29,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+
                 android:onClick="doAnimation"
-                android:text="animation"/>
+                android:text="animation" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="bezierModelToggle"
-                android:text="bezier Toggle"/>
+                android:text="bezier Toggle" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="pointModelToggle"
-                android:text="point Toggle"/>
+                android:text="point Toggle" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="tableToggle"
-                android:text="table Toggle"/>
+                android:text="table Toggle" />
 
         </LinearLayout>
 
@@ -79,13 +68,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Y轴标尺间距："/>
+                android:text="Y轴标尺间距：" />
 
             <TextView
                 android:id="@+id/tv_ruler_y"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"/>
+                android:text="20" />
 
 
         </LinearLayout>
@@ -94,7 +83,7 @@
         <SeekBar
             android:id="@+id/sb_ruler_space"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp" />
 
 
         <LinearLayout
@@ -107,13 +96,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X轴标尺间距："/>
+                android:text="X轴标尺间距：" />
 
             <TextView
                 android:id="@+id/tv_step_space"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"/>
+                android:text="15" />
 
 
         </LinearLayout>
@@ -122,7 +111,7 @@
         <SeekBar
             android:id="@+id/sb_step_space"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp" />
 
     </LinearLayout>
 
