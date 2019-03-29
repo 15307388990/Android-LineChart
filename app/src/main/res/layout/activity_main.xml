@@ -16,7 +16,7 @@
         <com.jeanboy.linechart.LineChartView
             android:id="@+id/line_chart_view"
             android:layout_width="match_parent"
-            android:layout_marginLeft="-20dp"
+            android:layout_gravity="center"
             android:layout_height="300dp" />
 
 

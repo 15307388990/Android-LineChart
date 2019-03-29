@@ -41,6 +41,7 @@ public class LineChartView extends View {
 
     private List<Data> dataList = new ArrayList<>();
     private List<Data> dataList2 = new ArrayList<>();
+    private List<String> Textlist = new ArrayList<>();
 
     private Point[] linePoints;
     private Point[] linePoints2;
@@ -51,10 +52,10 @@ public class LineChartView extends View {
     private int stepSpaceDP = stepSpaceDefault;//item宽度默认dp
     private int topSpace, bottomSpace;
     private int tablePadding;
-    private int tablePaddingDP = 20;//view四周padding默认dp
+    private int tablePaddingDP = 10;//view四周padding默认dp
 
     private int maxValue, minValue;
-    private int rulerValueDefault = 10;
+    private int rulerValueDefault = 15;
     private int rulerValue = rulerValueDefault;//刻度单位跨度
     private int rulerValuePadding;//刻度单位与轴的间距
     private int rulerValuePaddingDP = 8;//刻度单位与轴的间距默认dp
@@ -63,21 +64,21 @@ public class LineChartView extends View {
     private int lineColor = Color.parseColor( "#FFBC33" );//曲线颜色
     private float lineWidthDP = 2f;//曲线宽度dp
 
-    private int pointColor = Color.parseColor( "#FF4081" );//锚点颜色
+    private int pointColor = Color.parseColor( "#FFBC33" );//锚点颜色
     private float pointWidthDefault = 8f;
     private float pointWidthDP = pointWidthDefault;//锚点宽度dp
 
-    private int tableColor = Color.parseColor( "#BBBBBB" );//表格线颜色
+    private int tableColor = Color.parseColor( "#D8D8D8" );//表格线颜色
     private float tableWidthDP = 0.5f;//表格线宽度dp
 
-    private int rulerTextColor = tableColor;//表格标尺文本颜色
+    private int rulerTextColor =  Color.parseColor( "#333333" );;//表格标尺文本颜色
     private float rulerTextSizeSP = 10f;//表格标尺文本大小
 
-    private int pointTextColor = Color.parseColor( "#009688" );//锚点文本颜色
+    private int pointTextColor = Color.parseColor( "#333333" );//锚点文本颜色
     private float pointTextSizeSP = 10f;//锚点文本大小
 
-    private boolean isShowTable = false;
-    private boolean isBezierLine = false;
+    private boolean isShowTable = true;
+    private boolean isBezierLine = true;
     private boolean isCubePoint = false;
     private boolean isInitialized = false;
     private boolean isPlayAnim = false;
@@ -195,7 +196,7 @@ public class LineChartView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = tablePadding + getTableEnd() + getPaddingLeft() + getPaddingRight();//计算自己的宽度
+        int width = tablePadding + getTableEnd() + getPaddingLeft() + getPaddingRight() + tablePadding;//计算自己的宽度
         int heightMode = MeasureSpec.getMode( heightMeasureSpec );
         int height = MeasureSpec.getSize( heightMeasureSpec );//父类期望的高度
         if (MeasureSpec.EXACTLY == heightMode) {
@@ -234,6 +235,7 @@ public class LineChartView extends View {
         drawLine( canvas, linePath, linePaint );//绘制曲线
         drawLine( canvas, linePath2, linePaint2 );
         drawLinePoints( canvas, linePoints, pointPaint, dataList );//绘制曲线上的点
+        pointPaint.setColor( Color.parseColor( "#FD2A5B" ) );
         drawLinePoints( canvas, linePoints2, pointPaint, dataList2 );
     }
 
@@ -310,9 +312,9 @@ public class LineChartView extends View {
         int rulerMaxCount = maxValue % rulerValue > 0 ? rulerCount + 1 : rulerCount;
         int rulerMax = rulerValue * rulerMaxCount + rulerValueDefault;
 
-        tablePath.moveTo( stepStart, -getValueHeight( rulerMax ) );//加上顶部的间隔
-        tablePath.lineTo( stepStart, 0 );//标尺y轴
-       tablePath.lineTo( tableEnd, 0 );//标尺x轴
+        // tablePath.moveTo( stepStart, -getValueHeight( rulerMax ) );//加上顶部的间隔
+//        tablePath.lineTo( stepStart, 0 );//标尺y轴
+//       tablePath.lineTo( tableEnd, 0 );//标尺x轴
 
         int startValue = minValue - (minValue > 0 ? 0 : minValue % rulerValue);
         int endValue = (maxValue + rulerValue);
@@ -320,16 +322,16 @@ public class LineChartView extends View {
         //标尺y轴连接线
         do {
             int startHeight = -getValueHeight( startValue );
-          tablePath.moveTo( stepStart, startHeight );
+            tablePath.moveTo( stepStart, startHeight );
             tablePath.lineTo( tableEnd, startHeight );
-            //绘制y轴刻度单位
-            drawRulerYText( canvas, String.valueOf( startValue ), stepStart, startHeight );
+//            //绘制y轴刻度单位
+//            drawRulerYText( canvas, String.valueOf( startValue ), stepStart, startHeight );
             startValue += rulerValue;
         } while (startValue < endValue);
 
         canvas.drawPath( tablePath, tablePaint );
         //绘制x轴刻度单位
-        drawRulerXValue( canvas, linePoints );
+        drawRulerXValue( canvas, linePoints, Textlist );
     }
 
     /**
@@ -337,12 +339,18 @@ public class LineChartView extends View {
      *
      * @param canvas
      */
-    private void drawRulerXValue(Canvas canvas, Point[] linePoints) {
-        if (linePoints == null) return;
-        for (int i = 0; i < linePoints.length; i++) {
-            Point point = linePoints[i];
-            if (point == null) break;
-            drawRulerXText( canvas, "3月"+String.valueOf( i+1 )+"日", linePoints[i].x, 0 );
+    private void drawRulerXValue(Canvas canvas, Point[] linePoints, List<String> texts) {
+//        if (linePoints == null) return;
+//        for (int i = 0; i < linePoints.length; i++) {
+//            Point point = linePoints[i];
+//            if (point == null) break;
+//            drawRulerXText( canvas, "3月" + String.valueOf( i + 1 ) + "日", linePoints[i].x, 0 );
+//        }
+        if (texts.size() != 7) {
+            return;
+        }
+        for (int i = 0; i < texts.size(); i++) {
+            drawRulerXText( canvas, texts.get( i ), linePoints[i].x, 0 );
         }
     }
 
@@ -380,7 +388,7 @@ public class LineChartView extends View {
             if (point == null) break;
             canvas.drawCircle( point.x, point.y, pointWidth, pointPaint );
             //绘制点的文本
-            drawLinePointText( canvas, "￥"+String.valueOf( dataList.get( i ).getValue() ), point.x, point.y );
+            drawLinePointText( canvas, "￥" + String.valueOf( dataList.get( i ).getValue() ), point.x, point.y );
         }
     }
 
@@ -466,7 +474,23 @@ public class LineChartView extends View {
     /*-------------可操作方法---------------*/
 
     /**
-     * 设置数据
+     * 设置底部文本数据
+     *
+     * @param textlist
+     */
+    public void setTextData(List<String> textlist) {
+        if (Textlist == null) {
+            throw new RuntimeException( "textlist cannot is null!" );
+        }
+        if (textlist.isEmpty()) return;
+        this.Textlist.clear();
+        this.Textlist.addAll( textlist );
+
+        refreshLayout();
+    }
+
+    /**
+     * 设置曲线1数据
      *
      * @param dataList
      */
@@ -496,7 +520,7 @@ public class LineChartView extends View {
     }
 
     /**
-     * 设置数据
+     * 设置曲线2数据
      *
      * @param dataList
      */
